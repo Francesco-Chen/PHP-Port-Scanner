@@ -97,6 +97,10 @@
             $port = trim($port);
             $prot = getservbyport($port, "tcp");
             echo "<p>Port $port ($prot): ";
+
+            if (filter_var($domain, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                $domain = "[" . $domain . "]";
+            }
             
             if ($pf = @fsockopen($domain, $port, $err, $err_string, 1)) {
                 echo "<span class=\"open\">open</span></p>";
